@@ -1,4 +1,4 @@
-package lzlz000.gobang.robot;
+package lzlz000.gobang.common.robot;
 
 import lzlz000.gobang.common.*;
 import org.slf4j.Logger;
@@ -46,19 +46,25 @@ public class SimpleRobotDispatcher implements RobotDispatcher {
     }
 
     private void turn(GobangRobot active, GobangRobot another, GobangGame game) {
-        Point point = active.yourTurn(Long.MAX_VALUE);
-        // 这里已经事先判断过游戏没有结束，也保证是他的回合才会给他处理 所以只有可能是他下在了不能下的位置，
-        // 重试三次如果机器人继续胡闹就判负
+        Point point;
         int retry = 0;
-        while (!game.move(active.getPlayer(),point.getX(),point.getY())) {
+        do {
+            // 这里已经事先判断过游戏没有结束，也保证是他的回合才会给他处理 所以只有可能是他下在了不能下的位置，
+            // 重试三次如果机器人继续胡闹就判负
             point = active.yourTurn(Long.MAX_VALUE);
-            retry ++;
             if(retry>=MAX_RETRY){
                 winnerRobot = another;
                 log.info(active.getPlayer()+":" + active.name()+"持续返回不可用的结果，判负");
                 break;
             }
+            retry ++;
+
+        } while (point!=null && !game.move(active.getPlayer(),point.getX(),point.getY()));
+        if (point != null) {
+            log.debug(active.getPlayer()+" x:"+point.getX()+" y:"+point.getY());
+        } else {
+            winnerRobot = another;
+            log.info(active.getPlayer()+":" + active.name()+" 认输");
         }
-        log.debug(active.getPlayer()+" x:"+point.getX()+" y:"+point.getY());
     }
 }

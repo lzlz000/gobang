@@ -1,4 +1,4 @@
-package lzlz000.gobang.robot;
+package lzlz000.gobang.common.robot;
 
 import org.junit.Test;
 
@@ -20,8 +20,14 @@ public class RobotDispatcherTest {
 
 
     @Test
-    public void timeErr() {
+    public void testErr() {
         RobotDispatcher robotDispatcher = new TimeLimitRobotDispatcher(5,TimeUnit.SECONDS);
         robotDispatcher.startGame(new MonkeyRobot(),new ErrorRobot());
+    }
+
+    @Test
+    public void testGiveup() {
+        RobotDispatcher robotDispatcher = new TimeLimitRobotDispatcher(5,TimeUnit.SECONDS);
+        robotDispatcher.startGame(new MonkeyRobot(),new GiveupRobot());
     }
 }

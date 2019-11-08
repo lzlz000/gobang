@@ -1,4 +1,4 @@
-package lzlz000.gobang.robot;
+package lzlz000.gobang.common.robot;
 
 import lzlz000.gobang.common.GobangGame;
 import lzlz000.gobang.common.Player;
@@ -12,7 +12,8 @@ public interface GobangRobot {
     void start(GobangGame gobangGame,Player player);
 
     /**
-     * 你的回合 restTime 是你的剩余时间（ms），它会计算从调用yourTurn到你给出consumer回掉的时间间隔
+     * 你的回合 restTime 是你的剩余时间（ms）,如果剩余时间小于等于0 调度器会判负
+     * @return null 代表认输
      */
     Point yourTurn(long restTime);
 

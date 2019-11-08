@@ -1,4 +1,4 @@
-package lzlz000.gobang.robot;
+package lzlz000.gobang.common.robot;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

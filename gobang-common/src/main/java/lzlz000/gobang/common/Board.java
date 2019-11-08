@@ -1,7 +1,6 @@
 package lzlz000.gobang.common;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class Board {
         }
         int color = player.getValue();
         set(x, y,color);
-        addRecord(new PathNode(x, y, color));
+        addRecord(new PathNode(player, x, y, color));
         return true;
     }
 
@@ -109,6 +108,18 @@ public class Board {
     }
 
     public List<PathNode> getTrace() {
-        return new ArrayList<>(trace);
+        return new ArrayList<>(trace); //防止机器人篡改数据
     }
+
+    public int getSteps() {
+        return trace.size();
+    }
+
+    public PathNode getLast(){
+        if (trace.isEmpty()) {
+            return null;
+        }
+        return trace.getLast();
+    }
+
 }

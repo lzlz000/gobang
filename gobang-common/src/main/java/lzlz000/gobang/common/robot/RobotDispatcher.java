@@ -1,4 +1,4 @@
-package lzlz000.gobang.robot;
+package lzlz000.gobang.common.robot;
 
 public interface RobotDispatcher {
     GameResult startGame(GobangRobot black, GobangRobot white);

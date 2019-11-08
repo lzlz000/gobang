@@ -1,4 +1,4 @@
-package lzlz000.gobang.robot;
+package lzlz000.gobang.common.robot;
 
 import lzlz000.gobang.common.Board;
 import lzlz000.gobang.common.GobangGame;

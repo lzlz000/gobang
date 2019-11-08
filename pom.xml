@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>gobang-common</module>
-        <!--<module>gobang-robot</module>-->
+        <module>gobang-robot</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
