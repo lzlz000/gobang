@@ -1,12 +1,16 @@
 package lzlz000.gobang.robot;
 
 import lzlz000.gobang.common.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  * 机器人调度器
  */
 public class RobotDispatcher {
+    Logger log = LoggerFactory.getLogger(RobotDispatcher.class);
+
     private GobangRobot winner;
     private static final int MAX_RETRY = 3;
 
@@ -16,11 +20,11 @@ public class RobotDispatcher {
         whiteRobot.start(game, Player.White);
         // 有可能游戏没结束但是在调度器中对胡闹的机器人判负
         while (!game.isGameOver() && winner == null){
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             turn(blackRobot, whiteRobot, game);
             if (!game.isGameOver() && winner == null) {
                 turn(whiteRobot, blackRobot, game);
@@ -30,8 +34,12 @@ public class RobotDispatcher {
         if (winner == null) {
             winner = this.winner == blackRobot?Player.Black:Player.White;
         }
-        System.out.println("游戏结束 胜利者:"+winner);
-        System.out.println(game.getBoard());
+        if (winner == Player.Draw) {
+            log.info("游戏结束 平局" + game.getBoard().toString());
+        }else {
+            log.info("游戏结束 胜利者:"+ winner + game.getBoard().toString());
+
+        }
     }
 
     private void turn(GobangRobot active, GobangRobot another, GobangGame game) {
@@ -46,7 +54,7 @@ public class RobotDispatcher {
                 winner = another;
             }
         }
-        System.out.println(active.getPlayer()+" x:"+point.getX()+" y:"+point.getY());
+        log.debug(active.getPlayer()+" x:"+point.getX()+" y:"+point.getY());
 //        Future<?> submit = executor.submit(() -> {
 //            // todo 有时间限制的回合
 //            Board.Point point = active.yourTurn(Long.MAX_VALUE);

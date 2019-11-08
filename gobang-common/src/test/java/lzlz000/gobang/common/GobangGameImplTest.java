@@ -70,9 +70,9 @@ public class GobangGameImplTest {
         game.move(white,2,0);
         game.move(black,4,4);
         game.move(white,3,0);
-        game.move(black,6,2);
-        game.move(white,4,0);
         game.move(black,5,3);
+        game.move(white,4,0);
+        game.move(black,6,2);
         System.out.println(game.getBoard());
     }
 

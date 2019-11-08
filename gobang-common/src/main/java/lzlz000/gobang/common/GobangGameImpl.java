@@ -35,7 +35,7 @@ public class GobangGameImpl implements GobangGame {
 //            System.out.println("不是"+player+"的回合！");
             return false;
         }
-        if (!board.put(player, board.new Point(x, y))) {
+        if (!board.put(player, new Point(x, y))) {
             log.warn("不可落子的位置");
 //            System.out.println("不可落子的位置");
             return false;
