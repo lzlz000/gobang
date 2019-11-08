@@ -13,10 +13,6 @@ public class GobangGameImpl implements GobangGame {
     private Board board;
     private final Consumer<Player> gameOverHandler;
 
-//    private Player black;
-//
-//    private Player white;
-
     private Player activePlayer;
 
     private Player winner = null;
@@ -24,26 +20,22 @@ public class GobangGameImpl implements GobangGame {
     public GobangGameImpl(int size, Consumer<Player> gameOverHandler){
         board = new Board(size);
         this.gameOverHandler = gameOverHandler;
-//        black = Player.Black;
-//        white = Player.White;
         activePlayer = Player.Black;
     }
 
     public boolean move(Player player,int x ,int y){
         if (player!=activePlayer || isGameOver()) {
             log.warn("不是"+player+"的回合！");
-//            System.out.println("不是"+player+"的回合！");
             return false;
         }
         if (!board.put(player, new Point(x, y))) {
             log.warn("不可落子的位置");
-//            System.out.println("不可落子的位置");
             return false;
         }
         Player winner = checkGameOver(x, y);
         if (winner != null) {
             this.winner = winner;
-            log.info("游戏结束，胜者:"+winner);
+//            log.info("游戏结束，胜者:"+winner);
             if (gameOverHandler != null) {
                 gameOverHandler.accept(winner);
             }

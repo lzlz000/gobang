@@ -5,6 +5,10 @@ import lzlz000.gobang.common.Player;
 import lzlz000.gobang.common.Point;
 
 public interface GobangRobot {
+    default String name(){
+        return getClass().getSimpleName();
+    }
+
     void start(GobangGame gobangGame,Player player);
 
     /**
