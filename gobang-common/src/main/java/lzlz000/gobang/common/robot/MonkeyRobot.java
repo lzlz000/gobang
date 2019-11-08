@@ -15,6 +15,11 @@ public class MonkeyRobot implements GobangRobot {
     private Player player;
 
     @Override
+    public String  name() {
+        return "猴子机器人";
+    }
+
+    @Override
     public void start(GobangGame gobangGame, Player player) {
         this.game = gobangGame;
         this.player = player;

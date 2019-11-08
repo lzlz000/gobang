@@ -1,6 +1,9 @@
 package lzlz000.gobang.common;
 
-import lombok.Getter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /** 棋盘 */
 public class Board {
@@ -8,11 +11,10 @@ public class Board {
 
     private final int size;
     private final int[] boardArr;
-    private PathNode head;
-    private PathNode tail;
-    private int pieceCount = 0;
+    private LinkedList<PathNode> trace = new LinkedList<>();
+
     public boolean isFull(){
-        return pieceCount == size*size;
+        return trace.size() == size*size;
     }
 
     public Board(int size){
@@ -21,16 +23,17 @@ public class Board {
     }
 
     public boolean put(Player player,Point point){
-        if (point.getX() >= size || point.getY() >= size){
-            throw new IllegalArgumentException("out of the board size");
+        int x = point.getX();
+        int y = point.getY();
+        if (x < 0 || x >= size || y < 0 || y >= size){
+            return false;
         }
-        if (get(point.getX(),point.getY())>0) {
+        if (get(x, y)>0) {
             return false;
         }
         int color = player.getValue();
-        set(point.getX(),point.getY(),color);
-        addRecord(new PathNode(point.getX(), point.getY(), color));
-        pieceCount++;
+        set(x, y,color);
+        addRecord(new PathNode(x, y, color));
         return true;
     }
 
@@ -40,11 +43,9 @@ public class Board {
 
     /** 悔棋 */
     public void cancel(int step){
-        for (int i = 0; i < step && tail!=null; i++) {
-            pieceCount --;
+        for (int i = 0; i < step && !trace.isEmpty(); i++) {
+            PathNode tail = trace.pop();
             set(tail.getX(),tail.getY(),BLANK);
-            tail = tail.getPrev();
-            tail.setNext(null);
         }
     }
 
@@ -62,14 +63,7 @@ public class Board {
     }
 
     private void addRecord(PathNode pathNode){
-        if (head == null) {
-            head = pathNode;
-            tail = pathNode;
-        }else {
-            pathNode.setPrev(tail);
-            tail.setNext(pathNode);
-            tail = pathNode;
-        }
+        trace.push(pathNode);
     }
 
     @Override
@@ -112,5 +106,9 @@ public class Board {
             builder.append('\t');
         }
         return builder.toString();
+    }
+
+    public List<PathNode> getTrace() {
+        return new ArrayList<>(trace);
     }
 }
