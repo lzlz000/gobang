@@ -1,6 +1,5 @@
 package lzlz000.gobang.common;
 
-
 import lombok.Getter;
 
 @Getter

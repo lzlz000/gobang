@@ -13,9 +13,6 @@ public class PointChecker {
 
      */
     PointScore[] score4 = new PointScore[4];
-    public static void main(String[] args){
-        System.out.println(0xFFFFFFFF);
-    }
 
     void direction1(Point p, Board board){
         int x0 = p.getX();
