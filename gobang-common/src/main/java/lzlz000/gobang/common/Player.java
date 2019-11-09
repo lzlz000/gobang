@@ -11,4 +11,11 @@ public enum Player {
     Draw(-1);
 
     private final int value;
+
+    public static Player exchange(Player player){
+        if (player == Draw) {
+            throw new IllegalArgumentException();
+        }
+        return player == Black ? White : Black;
+    }
 }

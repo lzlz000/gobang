@@ -55,6 +55,10 @@ public class Board {
 
     public int get(int x, int y){
         int index = x + y * size;
+        return getByIndex(index);
+    }
+
+    public int getByIndex(int index){
         if ( index < 0 || index >= boardArr.length) {
             return BLANK;
         }

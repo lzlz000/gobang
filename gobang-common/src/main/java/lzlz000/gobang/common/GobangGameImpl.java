@@ -65,7 +65,7 @@ public class GobangGameImpl implements GobangGame {
     }
 
     private void exchangePlayer(){
-        activePlayer = activePlayer==Player.Black?Player.White:Player.Black;
+        activePlayer = Player.exchange(activePlayer);
     }
 
     private Player checkGameOver(int x0, int y0){

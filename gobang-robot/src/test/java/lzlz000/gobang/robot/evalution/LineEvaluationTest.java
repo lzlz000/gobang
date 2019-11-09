@@ -31,5 +31,12 @@ public class LineEvaluationTest {
         Assert.assertEquals(LineEvaluation.scores[2],evalution.getScore(line));  // 01111 分数4
         line.addMine();
         Assert.assertEquals(LineEvaluation.scores[3],evalution.getScore(line)); // 011111 分数8
+
+        line = new Line();
+        line.addEmpty();
+        line.addEmpty();
+        line.addEmpty();
+        line.addEmpty();
+        Assert.assertEquals(0,evalution.getScore(line)); // 模板中没有的应该返回0
     }
 }
