@@ -8,6 +8,7 @@ import lzlz000.gobang.robot.evalution.MoveEvaluator;
 
 public class MoveGenerator {
     private final MoveEvaluator moveEvaluator;
+    // 最大搜索深度应设为奇数
     private final int maxDepth;
 
     public MoveGenerator(MoveEvaluator moveEvaluator, int maxDepth) {
@@ -19,38 +20,46 @@ public class MoveGenerator {
     }
 
     @AllArgsConstructor
-    private class MaxScoreDepthPair{
+    private class Result{
         int score;
-        int depth;
+        int maxDepth;
+        Point point;
     }
 
     /**
      *
      * @param board 当前棋局
      * @param player 当前玩加 黑/白
-     * @param depth 当前搜索深度
+     * @param depth 当前搜索深度 从0开始 则偶数是自己的回合，奇数是对首回合
      * @param max 当前最大分数 和其对应的 搜索深度
      */
-    private void battle(Board board, Player player, int depth, MaxScoreDepthPair max){
+    private Result battle(Board board, Player player, int depth){
         if (depth >= maxDepth){
-            return;
+            return null;
         }
         int size = board.getSize();
         int indexLength = size * size;
+        int maxScore = 0;
+        int maxDepth = depth;
+        Point maxScorePoint = null;
         for (int i = 0; i < indexLength; i++) {
             int val = board.getByIndex(i);
             if (val == Board.BLANK) {
                 Point point = Point.pointOfIndex(size, i);
                 board.put(player,point); // 落子到棋盘
-                int score = moveEvaluator.evaluate(point, board); // 获取的分
-                if (score > max.score || (score == max.score  && depth < max.depth )) {
-                    max.score = score;
-                    max.depth = depth;
-                    battle(board,Player.exchange(player),depth+1,max);
-                    board.cancel(1);
+                int score = moveEvaluator.evaluate(point, board);
+                Result result = battle(board, Player.exchange(player), depth + 1);
+                if (result != null) {
+                    score += result.score;
+                }
+                if (score >= maxScore) {
+                    maxScore = score;
+                    maxScorePoint = point;
+                    maxDepth =
                 }
             }
 
         }
+        return (depth&1)==0?maxScore:-maxScore;
     }
 }

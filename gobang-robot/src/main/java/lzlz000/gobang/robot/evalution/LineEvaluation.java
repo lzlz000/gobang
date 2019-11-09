@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 class LineEvaluation {
-    static final int[] scores = {1,2,5,10};
+    static final int[] scores = {1,2,5,20};
     
     static class Node {
         private int val;
