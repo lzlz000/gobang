@@ -10,29 +10,30 @@ import java.util.function.Consumer;
 @Getter
 public class GobangGameImpl implements GobangGame {
     Logger log = LoggerFactory.getLogger(GobangGameImpl.class);
-    private Board board;
-    private final Consumer<Player> gameOverHandler;
+    private BoardImpl board;
+    private final Consumer<Winner> gameOverHandler;
 
-    private Player activePlayer;
+    private Board.Color activePlayer;
 
-    private Player winner = null;
+    private Winner winner = null;
 
-    public GobangGameImpl(int size, Consumer<Player> gameOverHandler){
-        board = new Board(size);
+    public GobangGameImpl(int size, Consumer<Winner> gameOverHandler){
+        board = new BoardImpl(size);
         this.gameOverHandler = gameOverHandler;
-        activePlayer = Player.Black;
+        activePlayer = Board.Color.Black;
     }
 
-    public boolean move(Player player,int x ,int y){
-        if (player!=activePlayer || isGameOver()) {
-            log.warn("不是"+player+"的回合！");
+    @Override
+    public boolean move(Board.Color color, int x, int y) {
+        if (color!=activePlayer || isGameOver()) {
+            log.warn("不是"+color+"的回合！");
             return false;
         }
-        if (!board.put(player, new Point(x, y))) {
+        if (!board.put(color, new Point(x, y))) {
             log.warn("不可落子的位置");
             return false;
         }
-        Player winner = checkGameOver(x, y);
+        Winner winner = checkGameOver(x, y);
         if (winner != null) {
             this.winner = winner;
 //            log.info("游戏结束，胜者:"+winner);
@@ -50,11 +51,6 @@ public class GobangGameImpl implements GobangGame {
     }
 
     @Override
-    public int getBoardVal(int x, int y) {
-        return board.get(x,y);
-    }
-
-    @Override
     public void cancel(int step) {
         if (step>0) {
             if(isGameOver()){
@@ -65,21 +61,22 @@ public class GobangGameImpl implements GobangGame {
     }
 
     private void exchangePlayer(){
-        activePlayer = Player.exchange(activePlayer);
+        activePlayer = Board.Color.exchange(activePlayer);
     }
 
-    private Player checkGameOver(int x0, int y0){
+    private Winner checkGameOver(int x0, int y0){
         if (board.isFull()) {
-            winner = Player.Draw; // 平局
+            winner = Winner.Draw; // 平局
         }
-        final int val0 = board.get(x0, y0);
-        if (val0 == Board.BLANK) {
+        final Board.Color color = board.get(x0, y0);
+        if (color == Board.Color.Blank) {
             return null;
         }
+        int val0 = color.getValue();
         // TODO 这种判断方式不适合有禁手的规则
         if (checkTopToBottom(x0,y0,val0) || checkLeftToRight(x0,y0,val0)
                 ||  checkTopLeftToRightBottom(x0,y0,val0) || checkTopRightToLeftBottom(x0,y0,val0)) {
-            return val0 == Player.Black.getValue()?Player.Black:Player.White;
+            return val0 == Board.Color.Black.getValue()?Winner.Black:Winner.White;
         }
         return null;
     }
@@ -90,7 +87,7 @@ public class GobangGameImpl implements GobangGame {
         int val;
         int count = 0;
         while (x>=0 && y >=0){
-            val = board.get(x,y);
+            val = board.get(x,y).getValue();
             if (val!=val0) {
                 break;
             }
@@ -100,8 +97,8 @@ public class GobangGameImpl implements GobangGame {
         }
         x = x0+1;
         y = y0+1;
-        while (x< board.getSize() && y < board.getSize()){
-            val = board.get(x,y);
+        while (x< board.size() && y < board.size()){
+            val = board.get(x,y).getValue();
             if (val!=val0) {
                 break;
             }
@@ -118,8 +115,8 @@ public class GobangGameImpl implements GobangGame {
         int y = y0;
         int val;
         int count = 0;
-        while (x>=0 && y < board.getSize()){
-            val = board.get(x,y);
+        while (x>=0 && y < board.size()){
+            val = board.get(x,y).getValue();
             if (val!=val0) {
                 break;
             }
@@ -129,8 +126,8 @@ public class GobangGameImpl implements GobangGame {
         }
         x = x0+1;
         y = y0-1;
-        while (x< board.getSize() && y >=0){
-            val = board.get(x,y);
+        while (x< board.size() && y >=0){
+            val = board.get(x,y).getValue();
             if (val!=val0) {
                 break;
             }
@@ -147,7 +144,7 @@ public class GobangGameImpl implements GobangGame {
         int val;
         int count = 0;
         while (y >= 0){
-            val = board.get(x0,y);
+            val = board.get(x0,y).getValue();
             if (val!=val0) {
                 break;
             }
@@ -155,8 +152,8 @@ public class GobangGameImpl implements GobangGame {
             y--;
         }
         y = y0+1;
-        while (y < board.getSize()){
-            val = board.get(x0,y);
+        while (y < board.size()){
+            val = board.get(x0,y).getValue();
             if (val!=val0) {
                 break;
             }
@@ -170,8 +167,8 @@ public class GobangGameImpl implements GobangGame {
         int x = x0;
         int val;
         int count = 0;
-        while (x < board.getSize()){
-            val = board.get(x,y0);
+        while (x < board.size()){
+            val = board.get(x,y0).getValue();
             if (val!=val0) {
                 break;
             }
@@ -181,7 +178,7 @@ public class GobangGameImpl implements GobangGame {
 
         x = x0 - 1;
         while (x >= 0){
-            val = board.get(x,y0);
+            val = board.get(x,y0).getValue();
             if (val!=val0) {
                 break;
             }

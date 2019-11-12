@@ -1,9 +1,6 @@
 package lzlz000.gobang.common.robot;
 
-import lzlz000.gobang.common.Board;
-import lzlz000.gobang.common.GobangGame;
-import lzlz000.gobang.common.Player;
-import lzlz000.gobang.common.Point;
+import lzlz000.gobang.common.*;
 
 import java.util.Random;
 
@@ -12,7 +9,7 @@ import java.util.Random;
  */
 public class MonkeyRobot implements GobangRobot {
     private GobangGame game;
-    private Player player;
+    private Board.Color player;
 
     @Override
     public String  name() {
@@ -20,21 +17,21 @@ public class MonkeyRobot implements GobangRobot {
     }
 
     @Override
-    public void start(GobangGame gobangGame, Player player) {
+    public void start(GobangGame gobangGame, Board.Color player) {
         this.game = gobangGame;
         this.player = player;
     }
 
     @Override
     public Point yourTurn(long restTime) {
-        Board board = game.getBoard();
-        int size = board.getSize();
+        BoardImpl board = game.getBoard();
+        int size = board.size();
         Random random = new Random();
         int ran = random.nextInt(size * size);
         //int index = x + y * size;
         int x = ran % size;
         int y = ran / size;
-        while (board.get(x,y) != Board.BLANK){
+        while (board.get(x,y) != Board.Color.Blank){
             ran ++;
             if (ran >= size * size) {
                 ran = 0;
@@ -46,7 +43,7 @@ public class MonkeyRobot implements GobangRobot {
     }
 
     @Override
-    public Player getPlayer() {
+    public Board.Color getPlayer() {
         return player;
     }
 }

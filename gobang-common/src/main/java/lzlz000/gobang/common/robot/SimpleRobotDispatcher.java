@@ -16,8 +16,8 @@ public class SimpleRobotDispatcher implements RobotDispatcher {
 
     public GameResult startGame(GobangRobot blackRobot, GobangRobot whiteRobot){
         GobangGame game = new GobangGameImpl(15,null);
-        blackRobot.start(game, Player.Black);
-        whiteRobot.start(game, Player.White);
+        blackRobot.start(game, Board.Color.Black);
+        whiteRobot.start(game, Board.Color.White);
         // 有可能游戏没结束但是在调度器中对胡闹的机器人判负
         while (!game.isGameOver() && winnerRobot == null){
 //            try {
@@ -30,13 +30,13 @@ public class SimpleRobotDispatcher implements RobotDispatcher {
                 turn(whiteRobot, blackRobot, game);
             }
         }
-        Player winner = game.getWinner();
+        Winner winner = game.getWinner();
         if (winner == null) {
-            winner = this.winnerRobot == blackRobot?Player.Black:Player.White;
+            winner = this.winnerRobot == blackRobot?Winner.Black:Winner.White;
         } else {
-            this.winnerRobot = winner == Player.Black?blackRobot:whiteRobot;
+            this.winnerRobot = winner == Winner.Black?blackRobot:whiteRobot;
         }
-        if (winner == Player.Draw) {
+        if (winner == Winner.Draw) {
             log.info("游戏结束 平局" + game.getBoard().toString());
         }else {
             log.info("游戏结束 胜利者:"+ winner+":"+this.winnerRobot.name() + game.getBoard().toString());

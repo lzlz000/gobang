@@ -1,9 +1,6 @@
 package lzlz000.gobang.common.robot;
 
-import lzlz000.gobang.common.GobangGame;
-import lzlz000.gobang.common.GobangGameImpl;
-import lzlz000.gobang.common.Player;
-import lzlz000.gobang.common.Point;
+import lzlz000.gobang.common.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,8 +25,8 @@ public class TimeLimitRobotDispatcher implements RobotDispatcher{
 
     public GameResult startGame(GobangRobot blackRobot, GobangRobot whiteRobot){
         GobangGame game = new GobangGameImpl(15,null);
-        blackRobot.start(game, Player.Black);
-        whiteRobot.start(game, Player.White);
+        blackRobot.start(game, Board.Color.Black);
+        whiteRobot.start(game, Board.Color.White);
         // 有可能游戏没结束但是在调度器中对胡闹的机器人判负
         while (!game.isGameOver() && winnerRobot == null){
             long time = System.currentTimeMillis();
@@ -41,13 +38,13 @@ public class TimeLimitRobotDispatcher implements RobotDispatcher{
                 restMsForWhite -= System.currentTimeMillis() - time;
             }
         }
-        Player winner = game.getWinner();
+        Winner winner = game.getWinner();
         if (winner == null) {
-            winner = this.winnerRobot == blackRobot?Player.Black:Player.White;
+            winner = this.winnerRobot == blackRobot?Winner.Black:Winner.White;
         } else {
-            this.winnerRobot = winner == Player.Black?blackRobot:whiteRobot;
+            this.winnerRobot = winner == Winner.Black?blackRobot:whiteRobot;
         }
-        if (winner == Player.Draw) {
+        if (winner == Winner.Draw) {
             log.info("游戏结束 平局" + game.getBoard().toString());
         }else {
             log.info("游戏结束 胜利者:"+ winner+":"+this.winnerRobot.name() + game.getBoard().toString());

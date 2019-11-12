@@ -7,8 +7,8 @@ public class GobangGameImplTest {
     @Test
     public void testLeftRight(){
         GobangGameImpl game = new GobangGameImpl(11,null);
-        Player black = Player.Black;
-        Player white = Player.White;
+        Board.Color black = Board.Color.Black;
+        Board.Color white = Board.Color.White;
         game.move(black,1,2);
         game.move(black,1,2); // 不是BlackPlayer的回合！
         game.move(white,1,2); // 不可落子的位置
@@ -27,8 +27,8 @@ public class GobangGameImplTest {
     @Test
     public void testTopBottom(){
         GobangGameImpl game = new GobangGameImpl(11,null);
-        Player black = Player.Black;
-        Player white = Player.White;
+        Board.Color black = Board.Color.Black;
+        Board.Color white = Board.Color.White;
         game.move(black,3,2);
         game.move(white,1,0);
         game.move(black,3,3);
@@ -45,8 +45,8 @@ public class GobangGameImplTest {
     @Test
     public void testTopLeft2RightBottom(){
         GobangGameImpl game = new GobangGameImpl(11,null);
-        Player black = Player.Black;
-        Player white = Player.White;
+        Board.Color black = Board.Color.Black;
+        Board.Color white = Board.Color.White;
         game.move(black,2,2);
         game.move(white,1,0);
         game.move(black,3,3);
@@ -62,8 +62,8 @@ public class GobangGameImplTest {
     @Test
     public void testTopRight2LeftBottom(){
         GobangGameImpl game = new GobangGameImpl(11,null);
-        Player black = Player.Black;
-        Player white = Player.White;
+        Board.Color black = Board.Color.Black;
+        Board.Color white = Board.Color.White;
         game.move(black,2,6);
         game.move(white,1,0);
         game.move(black,3,5);
