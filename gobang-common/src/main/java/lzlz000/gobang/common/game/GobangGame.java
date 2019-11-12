@@ -1,5 +1,7 @@
-package lzlz000.gobang.common;
+package lzlz000.gobang.common.game;
 
+
+import lzlz000.gobang.common.Winner;
 
 public interface GobangGame {
     /**

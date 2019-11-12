@@ -1,6 +1,6 @@
 package lzlz000.gobang.common.robot;
 
-import lzlz000.gobang.common.Point;
+import lzlz000.gobang.common.game.Point;
 
 public class DelayMonkeyRobot extends MonkeyRobot {
 

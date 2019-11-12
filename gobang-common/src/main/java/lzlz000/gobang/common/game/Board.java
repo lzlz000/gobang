@@ -1,4 +1,4 @@
-package lzlz000.gobang.common;
+package lzlz000.gobang.common.game;
 
 
 import lombok.AllArgsConstructor;

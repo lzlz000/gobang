@@ -1,5 +1,7 @@
 package lzlz000.gobang.common;
 
+import lzlz000.gobang.common.game.Board;
+import lzlz000.gobang.common.game.GobangGameImpl;
 import org.junit.Test;
 
 

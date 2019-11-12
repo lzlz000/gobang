@@ -1,6 +1,6 @@
 package lzlz000.gobang.robot.move;
 
-import lzlz000.gobang.common.BoardImpl;
+import lzlz000.gobang.common.game.BoardImpl;
 import lzlz000.gobang.common.Winner;
 import lzlz000.gobang.robot.evalution.MoveEvaluator;
 

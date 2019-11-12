@@ -1,6 +1,10 @@
 package lzlz000.gobang.common.robot;
 
 import lzlz000.gobang.common.*;
+import lzlz000.gobang.common.game.Board;
+import lzlz000.gobang.common.game.GobangGame;
+import lzlz000.gobang.common.game.GobangGameImpl;
+import lzlz000.gobang.common.game.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

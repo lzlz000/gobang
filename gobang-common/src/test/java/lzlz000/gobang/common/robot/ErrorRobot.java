@@ -1,9 +1,8 @@
 package lzlz000.gobang.common.robot;
 
-import lzlz000.gobang.common.Board;
-import lzlz000.gobang.common.GobangGame;
-import lzlz000.gobang.common.Winner;
-import lzlz000.gobang.common.Point;
+import lzlz000.gobang.common.game.Board;
+import lzlz000.gobang.common.game.GobangGame;
+import lzlz000.gobang.common.game.Point;
 
 /**
  * 下棋的策略为随机找一点 如果有空就下在这里 否则就依次向后搜索有任何空位就下下去

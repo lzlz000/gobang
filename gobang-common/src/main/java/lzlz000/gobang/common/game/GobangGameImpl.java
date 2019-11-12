@@ -1,6 +1,7 @@
-package lzlz000.gobang.common;
+package lzlz000.gobang.common.game;
 
 import lombok.Getter;
+import lzlz000.gobang.common.Winner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

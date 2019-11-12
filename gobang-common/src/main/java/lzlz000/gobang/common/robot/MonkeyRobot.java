@@ -1,6 +1,9 @@
 package lzlz000.gobang.common.robot;
 
-import lzlz000.gobang.common.*;
+import lzlz000.gobang.common.game.Board;
+import lzlz000.gobang.common.game.BoardImpl;
+import lzlz000.gobang.common.game.GobangGame;
+import lzlz000.gobang.common.game.Point;
 
 import java.util.Random;
 

@@ -1,6 +1,10 @@
 package lzlz000.gobang.robot;
 
 import lzlz000.gobang.common.*;
+import lzlz000.gobang.common.game.BoardImpl;
+import lzlz000.gobang.common.game.GobangGame;
+import lzlz000.gobang.common.game.PathNode;
+import lzlz000.gobang.common.game.Point;
 import lzlz000.gobang.common.robot.GobangRobot;
 
 public class Robot0 implements GobangRobot {

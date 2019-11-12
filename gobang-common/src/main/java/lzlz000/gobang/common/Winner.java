@@ -2,6 +2,7 @@ package lzlz000.gobang.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lzlz000.gobang.common.game.Board;
 
 @AllArgsConstructor
 @Getter
