@@ -16,17 +16,18 @@ public class ErrorRobot implements GobangRobot {
     }
 
     @Override
-    public void start(GobangGame gobangGame, Board.Color player) {
-        this.player = player;
+    public void start(int color, int boardSize) {
+        this.player = Board.Color.valueOf(color);
     }
 
     @Override
-    public Point yourTurn(long restTime) {
+    public Point yourTurn(int x,int y) {
         return new Point(-1,0);
     }
 
     @Override
-    public Board.Color getPlayer() {
-        return player;
+    public int getColor() {
+        return player.getValue();
     }
+
 }

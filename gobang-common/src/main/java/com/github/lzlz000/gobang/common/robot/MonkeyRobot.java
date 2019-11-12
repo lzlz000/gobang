@@ -1,9 +1,7 @@
 package com.github.lzlz000.gobang.common.robot;
 
-import com.github.lzlz000.gobang.common.game.Board;
-import com.github.lzlz000.gobang.common.game.BoardImpl;
-import com.github.lzlz000.gobang.common.game.GobangGame;
-import com.github.lzlz000.gobang.common.game.Point;
+import com.github.lzlz000.gobang.common.game.*;
+import com.github.lzlz000.gobang.common.game.referee.SimpleGameReferee;
 
 import java.util.Random;
 
@@ -12,7 +10,8 @@ import java.util.Random;
  */
 public class MonkeyRobot implements GobangRobot {
     private GobangGame game;
-    private Board.Color player;
+    private Board.Color mine;
+    private Board.Color oppo;
 
     @Override
     public String  name() {
@@ -20,14 +19,18 @@ public class MonkeyRobot implements GobangRobot {
     }
 
     @Override
-    public void start(GobangGame gobangGame, Board.Color player) {
-        this.game = gobangGame;
-        this.player = player;
+    public void start(int color, int boardSize) {
+        this.game = new GobangGameImpl(boardSize,new SimpleGameReferee(),null);
+        this.mine = Board.Color.valueOf(color);
+        this.oppo = Board.Color.exchange(this.mine);
     }
 
     @Override
-    public Point yourTurn(long restTime) {
-        BoardImpl board = game.getBoard();
+    public Point yourTurn(int x0,int y0) {
+        if (x0>=0 && y0>=0) {
+            game.move(oppo,x0,y0);
+        }
+        Board board = game.getBoard();
         int size = board.size();
         Random random = new Random();
         int ran = random.nextInt(size * size);
@@ -42,11 +45,12 @@ public class MonkeyRobot implements GobangRobot {
             x = ran % size;
             y = ran / size;
         }
+        game.move(mine,x,y);
         return new Point(x,y);
     }
 
     @Override
-    public Board.Color getPlayer() {
-        return player;
+    public int getColor() {
+        return mine.getValue();
     }
 }

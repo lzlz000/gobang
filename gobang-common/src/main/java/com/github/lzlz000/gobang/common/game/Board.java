@@ -15,7 +15,7 @@ public interface Board {
         private final int value;
         private final String cn;
 
-        protected static Color valueOf(int val){
+        public static Color valueOf(int val){
             switch (val) {
                 case 0:
                     return Blank;

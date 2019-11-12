@@ -11,17 +11,17 @@ public class GiveupRobot implements GobangRobot {
     private Board.Color player;
 
     @Override
-    public void start(GobangGame gobangGame, Board.Color player) {
-        this.player = player;
+    public void start(int color, int boardSize) {
+        this.player = Board.Color.valueOf(color);
     }
 
     @Override
-    public Point yourTurn(long restTime) {
+    public Point yourTurn(int x,int y) {
         return null;
     }
 
     @Override
-    public Board.Color getPlayer() {
-        return player;
+    public int getColor() {
+        return player.getValue();
     }
 }

@@ -1,22 +1,24 @@
 package com.github.lzlz000.gobang.common.robot;
 
-import com.github.lzlz000.gobang.common.game.Board;
-import com.github.lzlz000.gobang.common.game.GobangGame;
 import com.github.lzlz000.gobang.common.game.Point;
 
 public interface GobangRobot {
+    int BLACK  = 1;
+    int WHITE = 2;
+
     default String name(){
         return getClass().getSimpleName();
     }
 
-    void start(GobangGame gobangGame, Board.Color player);
+    void start(int color, int boardSize);
 
     /**
-     * 你的回合 restTime 是你的剩余时间（ms）,如果剩余时间小于等于0 调度器会判负
+     * @param x 对手落子位置，-1代表第一步
+     * @param y 对手落子位置，-1代表第一步
      * @return null 代表认输
      */
-    Point yourTurn(long restTime);
+    Point yourTurn(int x,int y);
 
-    Board.Color getPlayer();
+    int getColor();
 
 }

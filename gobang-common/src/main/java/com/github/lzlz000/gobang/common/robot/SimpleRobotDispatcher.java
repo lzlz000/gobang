@@ -17,8 +17,8 @@ public class SimpleRobotDispatcher implements RobotDispatcher {
 
     public GameResult startGame(GobangRobot blackRobot, GobangRobot whiteRobot){
         GobangGame game = new GobangGameImpl(15,new SimpleGameReferee(),null);
-        blackRobot.start(game, Board.Color.Black);
-        whiteRobot.start(game, Board.Color.White);
+        blackRobot.start(Board.Color.Black.getValue(),game.getBoard().size());
+        whiteRobot.start(Board.Color.White.getValue(),game.getBoard().size());
         // 有可能游戏没结束但是在调度器中对胡闹的机器人判负
         while (!game.isGameOver() && winnerRobot == null){
 //            try {
@@ -52,20 +52,22 @@ public class SimpleRobotDispatcher implements RobotDispatcher {
         do {
             // 这里已经事先判断过游戏没有结束，也保证是他的回合才会给他处理 所以只有可能是他下在了不能下的位置，
             // 重试三次如果机器人继续胡闹就判负
-            point = active.yourTurn(Long.MAX_VALUE);
+            PathNode latest = game.getBoard().getLatest();
+
+            point = active.yourTurn(latest!=null?latest.getX():-1,latest!=null?latest.getY():-1);
             if(retry>=MAX_RETRY){
                 winnerRobot = another;
-                log.info(active.getPlayer()+":" + active.name()+"持续返回不可用的结果，判负");
+                log.info(active.getColor()+":" + active.name()+"持续返回不可用的结果，判负");
                 break;
             }
             retry ++;
 
-        } while (point!=null && !game.move(active.getPlayer(),point.getX(),point.getY()));
+        } while (point!=null && !game.move(Board.Color.valueOf(active.getColor()),point.getX(),point.getY()));
         if (point != null) {
-            log.debug(active.getPlayer()+" x:"+point.getX()+" y:"+point.getY());
+            log.debug(active.getColor()+" x:"+point.getX()+" y:"+point.getY());
         } else {
             winnerRobot = another;
-            log.info(active.getPlayer()+":" + active.name()+" 认输");
+            log.info(active.getColor()+":" + active.name()+" 认输");
         }
     }
 }

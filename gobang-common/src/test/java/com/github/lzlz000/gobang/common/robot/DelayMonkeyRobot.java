@@ -10,12 +10,12 @@ public class DelayMonkeyRobot extends MonkeyRobot {
     }
 
     @Override
-    public Point yourTurn(long restTime) {
+    public Point yourTurn(int x,int y) {
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return super.yourTurn(restTime);
+        return super.yourTurn(x, y);
     }
 }
