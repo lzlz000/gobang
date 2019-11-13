@@ -1,6 +1,7 @@
 package com.github.lzlz000.gobang.robot.evalution;
 
-import com.github.lzlz000.gobang.common.game.BoardImpl;
+import com.github.lzlz000.gobang.common.game.Board;
+import com.github.lzlz000.gobang.common.game.PathNode;
 import com.github.lzlz000.gobang.common.game.Point;
 
 import java.util.function.Function;
@@ -12,7 +13,9 @@ public class MoveEvaluatorImpl implements MoveEvaluator {
 
     private final LineEvaluation lineEvaluation = new LineEvaluation();
 
-    public int evaluate(Point p, BoardImpl board){
+    public int evaluate(Board board){
+        PathNode latest = board.getLatest();
+        Point p = new Point(latest.getX(),latest.getY());
         Line[] lines = {direction1(p, board),direction2(p, board),direction3(p, board), direction4(p, board)};
         int score = 0;
         for (Line line : lines) {
@@ -28,7 +31,7 @@ public class MoveEvaluatorImpl implements MoveEvaluator {
             下
      */
     /** 左右 */
-    private Line direction1(Point p, BoardImpl board){
+    private Line direction1(Point p, Board board){
         Line line = new Line();
         line.addMine();
         spliceLine(p, board, line, true,  p0 -> new Point(p.getX()-1 ,p.getY()));
@@ -37,7 +40,7 @@ public class MoveEvaluatorImpl implements MoveEvaluator {
     }
 
     /** 左上右下 */
-    private Line direction2(Point p, BoardImpl board){
+    private Line direction2(Point p, Board board){
         Line line = new Line();
         line.addMine();
         spliceLine(p, board, line, true,  p0 -> new Point(p.getX()-1 ,p.getY()-1));
@@ -46,7 +49,7 @@ public class MoveEvaluatorImpl implements MoveEvaluator {
     }
 
     /** 上下 */
-    private Line direction3(Point p, BoardImpl board){
+    private Line direction3(Point p, Board board){
         Line line = new Line();
         line.addMine();
         spliceLine(p, board, line, true,  p0 -> new Point(p.getX() ,p.getY()-1));
@@ -55,7 +58,7 @@ public class MoveEvaluatorImpl implements MoveEvaluator {
     }
 
     /** 右上左下 */
-    private Line direction4(Point p, BoardImpl board){
+    private Line direction4(Point p, Board board){
         Line line = new Line();
         line.addMine();
         spliceLine(p, board, line, true,  p0 -> new Point(p.getX()+1 ,p.getY()-1));
@@ -63,7 +66,7 @@ public class MoveEvaluatorImpl implements MoveEvaluator {
         return line;
     }
 
-    private void spliceLine(Point p, BoardImpl board, Line line , boolean leftOrRight, Function<Point,Point> move){
+    private void spliceLine(Point p, Board board, Line line , boolean leftOrRight, Function<Point,Point> move){
         int x0 = p.getX();
         int y0 = p.getY();
         Point nextPoint = move.apply(new Point(x0, y0));
