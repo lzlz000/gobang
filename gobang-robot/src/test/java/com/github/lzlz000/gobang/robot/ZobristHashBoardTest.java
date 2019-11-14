@@ -1,6 +1,7 @@
 package com.github.lzlz000.gobang.robot;
 
 import com.github.lzlz000.gobang.common.game.Board;
+import com.github.lzlz000.gobang.common.game.PathNode;
 import com.github.lzlz000.gobang.common.game.Point;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,6 +28,9 @@ public class ZobristHashBoardTest {
         board.put(Board.Color.White,new Point(3,4));
         board.put(Board.Color.Black,new Point(2,4));
         Assert.assertEquals(hash1,hash3);
+        for (PathNode pathNode : board.getTrace()) {
+            System.out.println("x:"+pathNode.getX()+":y"+pathNode.getY());
+        }
 
     }
 

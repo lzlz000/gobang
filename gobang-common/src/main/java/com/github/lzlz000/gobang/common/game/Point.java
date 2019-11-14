@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
-@ToString
 public class Point {
     private int x;
     private int y;
@@ -23,5 +22,10 @@ public class Point {
             throw new IllegalArgumentException();
         }
         return new Point(index%size,index/size);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("x:%s-y:%s",x,y);
     }
 }

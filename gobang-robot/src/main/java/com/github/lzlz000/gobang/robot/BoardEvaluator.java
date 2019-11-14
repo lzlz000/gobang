@@ -6,5 +6,4 @@ import com.github.lzlz000.gobang.robot.robot0.Evaluation;
 public interface BoardEvaluator {
     Evaluation evaluate(ZobristHashBoard board);
 
-    void setMyColor(Board.Color color);
 }

@@ -2,17 +2,16 @@ package com.github.lzlz000.gobang.robot;
 
 import com.github.lzlz000.gobang.common.game.*;
 import com.github.lzlz000.gobang.common.robot.GobangRobot;
-import com.github.lzlz000.gobang.robot.robot0.MoveGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 public abstract class AbstractRobot implements GobangRobot {
-    private Logger logger = LoggerFactory.getLogger(AbstractRobot.class);
+    protected Logger logger = LoggerFactory.getLogger(AbstractRobot.class);
 
-    private Board.Color myColor;
-    private Board.Color opponent;
-    private ZobristHashBoard mirror;
+    protected Board.Color myColor;
+    protected Board.Color opponent;
+    protected ZobristHashBoard mirror;
 
     protected abstract MoveGenerator moveGenerator();
 

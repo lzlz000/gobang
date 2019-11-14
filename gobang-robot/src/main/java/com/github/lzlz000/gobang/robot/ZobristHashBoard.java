@@ -5,6 +5,7 @@ import com.github.lzlz000.gobang.common.game.BoardImpl;
 import com.github.lzlz000.gobang.common.game.PathNode;
 import com.github.lzlz000.gobang.common.game.Point;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -52,5 +53,10 @@ public class ZobristHashBoard extends BoardImpl implements Board {
 
     public long getHash() {
         return hash;
+    }
+
+    @Override
+    public List<PathNode> getTrace() {
+        return trace; // 这个棋盘就是给机器人使用的 不需要复制对局
     }
 }
