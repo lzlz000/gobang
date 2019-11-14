@@ -19,6 +19,6 @@ public interface GobangRobot {
      */
     Point yourTurn(int x,int y);
 
-    int getColor();
+    int getMyColor();
 
 }

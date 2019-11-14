@@ -24,7 +24,6 @@ public class AlphaBetaTreeMoveGenerator implements MoveGenerator {
     }
 
     public Point get(ZobristHashBoard board){
-        System.out.println("AlphaBetaTreeMoveGenerator.get");
         System.out.println("当前棋局"+board);
         PathNode latest = board.getLatest();
         Board.Color myColor = latest!=null?latest.getColor():Board.Color.Black;
@@ -36,7 +35,7 @@ public class AlphaBetaTreeMoveGenerator implements MoveGenerator {
         List<Point> nextMoves = moveIterator.next(board);
         for (Point next : nextMoves) {
             board.put(oppoColor, next);
-            int score = min(board, alpha, beta, maxDepth);
+            int score = min(board, alpha, beta, 0);
             board.cancel(1); // 把模拟下的棋子弹出棋盘
             if (score > maxScore) {
                 maxScore = score;
@@ -49,7 +48,6 @@ public class AlphaBetaTreeMoveGenerator implements MoveGenerator {
 
     private int max(ZobristHashBoard board,int alpha, int beta,int depth) {
         Evaluation evaluate = evaluator.evaluate(board);
-        System.out.println("AlphaBetaTreeMoveGenerator.max");
         // 如果迭代到达最大层数或者游戏结束 则返回
         if (depth >= maxDepth || evaluate.getFinishStatus() > 0){
             return evaluate.getScore();
@@ -58,7 +56,7 @@ public class AlphaBetaTreeMoveGenerator implements MoveGenerator {
         List<Point> nextMoves = moveIterator.next(board);
         for (Point next : nextMoves) {
             board.put(Board.Color.exchange(color),next);
-            int score = min(board, alpha, beta, depth);
+            int score = min(board, alpha, beta, depth+1);
             board.cancel(1); // 把模拟下的棋子弹出棋盘
             if (score < alpha){
                 break;
@@ -71,7 +69,6 @@ public class AlphaBetaTreeMoveGenerator implements MoveGenerator {
     }
 
     private int min(ZobristHashBoard board, int alpha, int beta, int depth) {
-        System.out.println("AlphaBetaTreeMoveGenerator.min");
         Evaluation evaluate = evaluator.evaluate(board);
         // 如果迭代到达最大层数或者游戏结束 则返回
         if (depth >= maxDepth || evaluate.getFinishStatus() > 0){
@@ -81,7 +78,7 @@ public class AlphaBetaTreeMoveGenerator implements MoveGenerator {
         List<Point> nextMoves = moveIterator.next(board);
         for (Point next : nextMoves) {
             board.put(Board.Color.exchange(color),next);
-            int score = max(board, alpha, beta, depth);
+            int score = max(board, alpha, beta, depth+1);
             board.cancel(1); // 把模拟下的棋子弹出棋盘
             if (score > beta){
                 break;

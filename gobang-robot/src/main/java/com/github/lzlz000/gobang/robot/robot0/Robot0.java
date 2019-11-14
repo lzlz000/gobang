@@ -7,7 +7,9 @@ import com.github.lzlz000.gobang.robot.MoveGenerator;
 public class Robot0 extends AbstractRobot implements GobangRobot {
     private MoveGenerator moveGenerator;
 
-    public Robot0(){
+    @Override
+    public void start(int color, int boardSize) {
+        super.start(color, boardSize);
         moveGenerator = new AlphaBetaTreeMoveGenerator(new BoardEvaluatorImpl(myColor), new NeighborMoveIterator());
     }
 

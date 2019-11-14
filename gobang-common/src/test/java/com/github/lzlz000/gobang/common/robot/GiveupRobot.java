@@ -21,7 +21,7 @@ public class GiveupRobot implements GobangRobot {
     }
 
     @Override
-    public int getColor() {
+    public int getMyColor() {
         return player.getValue();
     }
 }

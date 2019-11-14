@@ -39,6 +39,7 @@ public class NeighborMoveIterator implements MoveIterator {
         int size = board.size();
         // BoardImpl的trace是从最后一个插入的值向前迭代的 这样先加入迭代集合的点就是靠近最后落子的点位，
         // 实际上选择这些点位的可能性更高 后续博弈树搜索时利于剪枝
+        int range = board.getTrace().size()>1?2:1; //只有一个子的时候只在周边搜索最有利
         for (PathNode pathNode : board.getTrace()) {
             int x = pathNode.getX();
             int y = pathNode.getY();
@@ -46,12 +47,18 @@ public class NeighborMoveIterator implements MoveIterator {
             int xMax = Math.min(x + 2, size - 1);
             int yMin = Math.max(y - 2, 0);
             int yMax = Math.min(y + 2, size - 1);
+            List<Point> randonList = new ArrayList<>();
             for (int x1 = xMin; x1 <= xMax ; x1++) {
                 for (int y1 = yMin; y1 <= yMax; y1++) {
                     if (board.get(x1,y1) == Board.Color.Blank) {
-                        set.add(new Point(x1,y1));
+                        randonList.add(new Point(x1,y1));
                     }
                 }
+            }
+            // 每个节点的周围格子是等价的 随机的加入
+            Random random = new Random();
+            for (int i = randonList.size(); i >0; i--) {
+                set.add(randonList.remove(random.nextInt(i)));
             }
         }
         return new ArrayList<>(set);

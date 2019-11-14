@@ -57,7 +57,7 @@ public class TimeLimitRobotDispatcher implements RobotDispatcher{
     private void turn(GobangRobot active, GobangRobot another, GobangGame game,long restTime) {
         if (restTime<=0) {
             winnerRobot = another;
-            log.info(active.getColor()+":" + active.name()+" 时间耗尽，判负");
+            log.info(active.getMyColor()+":" + active.name()+" 时间耗尽，判负");
         }
         Point point;
         int retry = 0;
@@ -68,17 +68,17 @@ public class TimeLimitRobotDispatcher implements RobotDispatcher{
             point = active.yourTurn(latest!=null?latest.getX():-1,latest!=null?latest.getY():-1);
             if(retry>=MAX_RETRY){
                 winnerRobot = another;
-                log.info(active.getColor()+":" + active.name()+"持续返回不可用的结果，判负");
+                log.info(active.getMyColor()+":" + active.name()+"持续返回不可用的结果，判负");
                 break;
             }
             retry ++;
 
-        } while (point!=null && !game.move(Board.Color.valueOf(active.getColor()),point.getX(),point.getY()));
+        } while (point!=null && !game.move(Board.Color.valueOf(active.getMyColor()),point.getX(),point.getY()));
         if (point != null) {
-            log.debug(active.getColor()+" x:"+point.getX()+" y:"+point.getY());
+            log.debug(active.getMyColor()+" x:"+point.getX()+" y:"+point.getY());
         } else {
             winnerRobot = another;
-            log.info(active.getColor() + ":" + active.name() + " 认输");
+            log.info(active.getMyColor() + ":" + active.name() + " 认输");
         }
     }
 }

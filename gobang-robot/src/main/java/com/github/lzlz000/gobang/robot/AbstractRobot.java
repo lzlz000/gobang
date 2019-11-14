@@ -15,6 +15,7 @@ public abstract class AbstractRobot implements GobangRobot {
 
     protected abstract MoveGenerator moveGenerator();
 
+
     @Override
     public void start(int color, int boardSize) {
         this.myColor = Board.Color.valueOf(color);
@@ -37,7 +38,7 @@ public abstract class AbstractRobot implements GobangRobot {
     }
 
     @Override
-    public int getColor() {
+    public int getMyColor() {
         return myColor.getValue();
     }
 }

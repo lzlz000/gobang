@@ -50,7 +50,7 @@ public class MonkeyRobot implements GobangRobot {
     }
 
     @Override
-    public int getColor() {
+    public int getMyColor() {
         return mine.getValue();
     }
 }
