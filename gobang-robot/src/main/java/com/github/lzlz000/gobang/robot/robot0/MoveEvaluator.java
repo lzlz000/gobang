@@ -1,7 +1,7 @@
-package com.github.lzlz000.gobang.robot.evalution;
+package com.github.lzlz000.gobang.robot.robot0;
 
 import com.github.lzlz000.gobang.common.game.Board;
 
 public interface MoveEvaluator {
-    int evaluate(Board board);
+    Evaluation evaluate(Board board);
 }

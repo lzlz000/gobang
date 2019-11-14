@@ -1,4 +1,4 @@
-package com.github.lzlz000.gobang.robot.evalution;
+package com.github.lzlz000.gobang.robot.robot0;
 
 import com.github.lzlz000.gobang.common.game.Board;
 import com.github.lzlz000.gobang.common.game.PathNode;
@@ -13,15 +13,19 @@ public class MoveEvaluatorImpl implements MoveEvaluator {
 
     private final LineEvaluation lineEvaluation = new LineEvaluation();
 
-    public int evaluate(Board board){
+    public Evaluation evaluate(Board board){
         PathNode latest = board.getLatest();
         Point p = new Point(latest.getX(),latest.getY());
         Line[] lines = {direction1(p, board),direction2(p, board),direction3(p, board), direction4(p, board)};
         int score = 0;
         for (Line line : lines) {
-            score += lineEvaluation.getScore(line);
+            int lineScore = lineEvaluation.getScore(line);
+            if (lineScore == LineEvaluation.Win) {
+                return new Evaluation(Evaluation.WIN,score);
+            }
+            score+=lineScore;
         }
-        return score;
+        return new Evaluation(Evaluation.PROGRESS,score);
     }
     /*
      四个方向,约定编号

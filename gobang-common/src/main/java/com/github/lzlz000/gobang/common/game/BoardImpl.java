@@ -8,8 +8,8 @@ import java.util.List;
 public class BoardImpl implements Board{
 
     private final int size;
-    private final int[] boardArr;
-    private LinkedList<PathNode> trace = new LinkedList<>();
+    protected final int[] boardArr;
+    protected LinkedList<PathNode> trace = new LinkedList<>();
 
     public BoardImpl(int size){
         this.size = size;
@@ -22,6 +22,9 @@ public class BoardImpl implements Board{
 
     @Override
     public boolean put(Color color, Point point) {
+        if (color == Color.Blank) {
+            throw new IllegalArgumentException("只能下黑棋或白棋");
+        }
         int x = point.getX();
         int y = point.getY();
         if (x < 0 || x >= size || y < 0 || y >= size){

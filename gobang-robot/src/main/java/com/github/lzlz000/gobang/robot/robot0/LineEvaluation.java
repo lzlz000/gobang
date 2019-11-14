@@ -1,4 +1,4 @@
-package com.github.lzlz000.gobang.robot.evalution;
+package com.github.lzlz000.gobang.robot.robot0;
 
 import java.util.List;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.TreeMap;
 
 class LineEvaluation {
     static final int[] scores = {1,2,5,20};
+    static final int Win = scores[3];
     
     static class Node {
         private int val;

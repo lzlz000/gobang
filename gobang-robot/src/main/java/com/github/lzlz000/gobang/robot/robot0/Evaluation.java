@@ -1,8 +1,10 @@
-package com.github.lzlz000.gobang.robot.evalution;
+package com.github.lzlz000.gobang.robot.robot0;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class Evaluation {
     public static final int PROGRESS = 0;
     public static final int WIN = 1;

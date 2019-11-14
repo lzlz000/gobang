@@ -2,17 +2,17 @@ package com.github.lzlz000.gobang.robot;
 
 import com.github.lzlz000.gobang.common.game.*;
 import com.github.lzlz000.gobang.common.robot.GobangRobot;
-import com.github.lzlz000.gobang.robot.evalution.MoveGenerator;
+import com.github.lzlz000.gobang.robot.robot0.MoveGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public abstract class Robot0 implements GobangRobot {
-    private Logger logger = LoggerFactory.getLogger(Robot0.class);
+public abstract class AbstractRobot implements GobangRobot {
+    private Logger logger = LoggerFactory.getLogger(AbstractRobot.class);
 
     private Board.Color myColor;
     private Board.Color opponent;
-    private Board mirror;
+    private ZobristHashBoard mirror;
 
     protected abstract MoveGenerator moveGenerator();
 
@@ -20,7 +20,7 @@ public abstract class Robot0 implements GobangRobot {
     public void start(int color, int boardSize) {
         this.myColor = Board.Color.valueOf(color);
         this.opponent = Board.Color.exchange(this.myColor);
-        mirror = new BoardImpl(boardSize);
+        mirror = new ZobristHashBoard(boardSize);
     }
 
     @Override

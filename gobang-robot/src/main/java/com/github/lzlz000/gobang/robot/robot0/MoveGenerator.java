@@ -1,8 +1,12 @@
-package com.github.lzlz000.gobang.robot.evalution;
+package com.github.lzlz000.gobang.robot.robot0;
 
 import com.github.lzlz000.gobang.common.game.Board;
 import com.github.lzlz000.gobang.common.game.PathNode;
 import com.github.lzlz000.gobang.common.game.Point;
+import com.github.lzlz000.gobang.robot.BoardEvaluator;
+import com.github.lzlz000.gobang.robot.MoveIterator;
+import com.github.lzlz000.gobang.robot.ZobristHashBoard;
+import com.github.lzlz000.gobang.robot.robot0.Evaluation;
 
 public class MoveGenerator {
     private static final int maxDepth = 3;
@@ -14,7 +18,7 @@ public class MoveGenerator {
         this.moveIterator = moveIterator;
     }
 
-    public Point get(Board board){
+    public Point get(ZobristHashBoard board){
         PathNode latest = board.getLatest();
         Board.Color myColor = latest!=null?latest.getColor():Board.Color.Black;
         Board.Color oppoColor = Board.Color.exchange(myColor);
@@ -37,7 +41,7 @@ public class MoveGenerator {
     }
 
 
-    private int max(Board board,int alpha, int beta,int depth) {
+    private int max(ZobristHashBoard board,int alpha, int beta,int depth) {
         Evaluation evaluate = evaluator.evaluate(board);
         // 如果迭代到达最大层数或者游戏结束 则返回
         if (depth >= maxDepth || evaluate.getFinishStatus() > 0){
@@ -59,7 +63,7 @@ public class MoveGenerator {
         return beta;
     }
 
-    private int min(Board board, int alpha, int beta, int depth) {
+    private int min(ZobristHashBoard board, int alpha, int beta, int depth) {
         Evaluation evaluate = evaluator.evaluate(board);
         // 如果迭代到达最大层数或者游戏结束 则返回
         if (depth >= maxDepth || evaluate.getFinishStatus() > 0){

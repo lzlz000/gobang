@@ -1,4 +1,4 @@
-package com.github.lzlz000.gobang.robot.evalution;
+package com.github.lzlz000.gobang.robot;
 
 
 import com.github.lzlz000.gobang.common.game.Board;
