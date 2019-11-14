@@ -33,7 +33,7 @@ public abstract class BaseGobangReferee implements GobangReferee {
                     || (count4 = checkTopRightToLeftBottom(board, x0, y0, val0))==5) {
                 //  注意禁手仅对黑棋使用，因此此处就默认认为五连黑棋胜 长连白棋胜
                 return WinnerMessage.Black;
-            } else if (count1 >5 || count2>5 || count3>5 || count4>5){
+            } else if (count1 >5 || count2>5 || count3>5 || count4>5) {
                 return new WinnerMessage(Winner.White,"黑棋长连禁手 白棋胜");
             }
         }else {

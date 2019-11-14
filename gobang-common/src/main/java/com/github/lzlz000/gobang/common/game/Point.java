@@ -2,6 +2,7 @@ package com.github.lzlz000.gobang.common.game;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
@@ -12,10 +13,19 @@ public class Point {
         return x + y * size;
     }
 
+    public static int index(int x, int y, int size){
+        return x + y * size;
+    }
+
     public static Point pointOfIndex(int size, int index){
         if (index >= size * size) {
             throw new IllegalArgumentException();
         }
         return new Point(index%size,index/size);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("x:%s-y:%s",x,y);
     }
 }

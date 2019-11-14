@@ -1,4 +1,4 @@
-package com.github.lzlz000.gobang.robot.evalution;
+package com.github.lzlz000.gobang.robot.robot0;
 
 import java.util.LinkedList;
 import java.util.List;
