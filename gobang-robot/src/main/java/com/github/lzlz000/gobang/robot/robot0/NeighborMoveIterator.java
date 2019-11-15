@@ -43,10 +43,10 @@ public class NeighborMoveIterator implements MoveIterator {
         for (PathNode pathNode : board.getTrace()) {
             int x = pathNode.getX();
             int y = pathNode.getY();
-            int xMin = Math.max(x - 2, 0);
-            int xMax = Math.min(x + 2, size - 1);
-            int yMin = Math.max(y - 2, 0);
-            int yMax = Math.min(y + 2, size - 1);
+            int xMin = Math.max(x - range, 0);
+            int xMax = Math.min(x + range, size - 1);
+            int yMin = Math.max(y - range, 0);
+            int yMax = Math.min(y + range, size - 1);
             List<Point> randonList = new ArrayList<>();
             for (int x1 = xMin; x1 <= xMax ; x1++) {
                 for (int y1 = yMin; y1 <= yMax; y1++) {

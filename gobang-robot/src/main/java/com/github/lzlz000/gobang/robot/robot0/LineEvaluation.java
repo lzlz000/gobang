@@ -51,7 +51,7 @@ class LineEvaluation {
         // 约定0代表1个空位  1代表我方棋子
         lineScoreMap.put("001",scores[0]);
         lineScoreMap.put("100",scores[0]);
-        lineScoreMap.put("00100",scores[0]);
+        lineScoreMap.put("00100",scores[1]);
         lineScoreMap.put("01100",scores[2]);
         lineScoreMap.put("00110",scores[2]);
         // 离确保胜利还差两步

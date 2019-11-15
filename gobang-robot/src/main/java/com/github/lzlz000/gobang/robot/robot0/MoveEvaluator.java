@@ -3,6 +3,8 @@ package com.github.lzlz000.gobang.robot.robot0;
 import com.github.lzlz000.gobang.common.game.Board;
 import com.github.lzlz000.gobang.common.game.Point;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Function;
 
 /**

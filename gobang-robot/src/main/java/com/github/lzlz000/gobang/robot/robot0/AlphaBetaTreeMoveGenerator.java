@@ -14,7 +14,7 @@ import java.util.List;
  * alpha-beta博弈树 得到下一步的点位
  */
 public class AlphaBetaTreeMoveGenerator implements MoveGenerator {
-    private static final int maxDepth = 3;
+    private static final int maxDepth = 2;
     private final BoardEvaluator evaluator;
     private final MoveIterator moveIterator;
 
@@ -37,7 +37,7 @@ public class AlphaBetaTreeMoveGenerator implements MoveGenerator {
             board.put(oppoColor, next);
             int score = min(board, alpha, beta, 0);
             board.cancel(1); // 把模拟下的棋子弹出棋盘
-            if (score > maxScore) {
+            if (score > maxScore || best == null) {
                 maxScore = score;
                 best = next;
             }
@@ -47,6 +47,7 @@ public class AlphaBetaTreeMoveGenerator implements MoveGenerator {
 
 
     private int max(ZobristHashBoard board,int alpha, int beta,int depth) {
+        System.out.println("AlphaBetaTreeMoveGenerator.max"+depth);
         Evaluation evaluate = evaluator.evaluate(board);
         // 如果迭代到达最大层数或者游戏结束 则返回
         if (depth >= maxDepth || evaluate.getFinishStatus() > 0){
@@ -69,6 +70,7 @@ public class AlphaBetaTreeMoveGenerator implements MoveGenerator {
     }
 
     private int min(ZobristHashBoard board, int alpha, int beta, int depth) {
+        System.out.println("AlphaBetaTreeMoveGenerator.min"+depth);
         Evaluation evaluate = evaluator.evaluate(board);
         // 如果迭代到达最大层数或者游戏结束 则返回
         if (depth >= maxDepth || evaluate.getFinishStatus() > 0){
@@ -84,10 +86,10 @@ public class AlphaBetaTreeMoveGenerator implements MoveGenerator {
                 break;
             }
             if (score < alpha) {
-                beta = score;
+                alpha = score;
             }
         }
-        return beta;
+        return alpha;
     }
 
 
